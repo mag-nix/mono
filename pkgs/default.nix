@@ -8,12 +8,15 @@ let
     extra: prev.lib.callPackageWith (prev // final.local.noetic);
   local = final.lib.makeScope newScope (localPrev: {
     noetic = {
-      # custom-msgs = localPrev.callPackage ./custom-msgs {};
       rospy-tutorials = localPrev.callPackage ./rospy-tutorials {};
       roscpp-tutorials = localPrev.callPackage ./roscpp-tutorials {};
     };
   });
 in {
   inherit local;
-  rosPackages = final.lib.recursiveUpdate prev.rosPackages local;
+
+  final = if builtins.hasAttr "rosPackages" prev then
+    { rosPackages = final.lib.recursiveUpdate prev.rosPackages local; }
+  else
+    final.lib.recursiveUpdate prev local.noetic;
 }
