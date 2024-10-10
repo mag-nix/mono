@@ -1,11 +1,15 @@
-{ config, lib, nixpkgs, nix-ros-overlay, pkgs, ... }:
+{ config, lib, nixpkgs, nix-ros-overlay, ... }:
+# let
+# overlay.list = [
+#   (import ./combine-overlay.nix { inherit nix-ros-overlay; })
+# ];
+# in
 {
   imports = [
     ./ros.nix
   ];
 
-  ros-module.overlay = nix-ros-overlay;
-  ros-module.pkgs = pkgs;
+  ros-module.overlays = nix-ros-overlay.overlays;
 
   boot.kernelParams = [ "console=tty0" ];
 

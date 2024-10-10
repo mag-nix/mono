@@ -1,10 +1,6 @@
 { lib, config, ... }:
 {
-  options.ros-module.overlay = lib.mkOption {
-    type = lib.types.attrs;
-  };
-
-  options.ros-module.pkgs = lib.mkOption {
+  options.ros-module.overlays = lib.mkOption {
     type = lib.types.attrs;
   };
 
@@ -16,7 +12,11 @@
     hostname = "localhost";
 
     overlays = [
-      config.ros-module.overlay.overlays.default
+      config.ros-module.overlays.default
+      (rosSelf: rosSuper: {
+        rospy-tutorials-local = rosSelf.callPackage ../pkgs/rospy-tutorials { };
+      })
+      # (import ../pkgs)
     ];
 
     # Nix Package naming
@@ -24,7 +24,7 @@
       rosbash
       roslaunch
       rostopic
-      config.ros-module.pkgs.rospy-tutorials
+      rospy-tutorials
     ];
 
     nodes = {

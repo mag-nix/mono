@@ -13,17 +13,15 @@
   };
 
   outputs = { self, nixpkgs, nix-ros-overlay, nixos-generators, deploy-rs, ... }@attrs:
-    nix-ros-overlay.inputs.flake-utils.lib.eachDefaultSystem (system:
     let
+      system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
         overlays = [
           nix-ros-overlay.overlays.default
-          # This overlay adds the packages of this repo to pkgs
-          (import ./pkgs/default.nix)
+          (import ./pkgs/noetic.nix)
         ];
       };
-      attrs.pkgs = pkgs;
     in
     {
     # NixOS System
@@ -38,27 +36,27 @@
     };
 
     # Nix Packages
-    packages.${system} = {
-      # Supported formats at https://github.com/nix-community/nixos-generators
-      vbox = nixos-generators.nixosGenerate {
-        inherit system;
-        specialArgs = attrs;
-        modules = [
-          nix-ros-overlay.nixosModules.default
-          ./configuration/configuration-vm.nix
-        ];
-        format = "virtualbox";
-      };
-      install-iso = nixos-generators.nixosGenerate {
-        inherit system;
-        specialArgs = attrs;
-        modules = [
-          nix-ros-overlay.nixosModules.default
-          ./configuration/configuration-iso.nix
-        ];
-        format = "install-iso";
-      };
-    };
+    # packages.${system} = {
+    #   # Supported formats at https://github.com/nix-community/nixos-generators
+    #   vbox = nixos-generators.nixosGenerate {
+    #     inherit system;
+    #     specialArgs = attrs;
+    #     modules = [
+    #       nix-ros-overlay.nixosModules.default
+    #       ./configuration/configuration-vm.nix
+    #     ];
+    #     format = "virtualbox";
+    #   };
+    #   install-iso = nixos-generators.nixosGenerate {
+    #     inherit system;
+    #     specialArgs = attrs;
+    #     modules = [
+    #       nix-ros-overlay.nixosModules.default
+    #       ./configuration/configuration-iso.nix
+    #     ];
+    #     format = "install-iso";
+    #   };
+    # };
 
     deploy.nodes.local-vm = {
       hostname = "localhost";
@@ -76,37 +74,39 @@
     # This is highly advised, and will prevent many possible mistakes
     checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
 
-    devShells.deploy = pkgs.mkShell {
-      buildInputs = [ pkgs.deploy-rs ];
-      inputsFrom = [ ];
+    devShells.${system} = {
+      deploy = pkgs.mkShell {
+        buildInputs = [ pkgs.deploy-rs ];
+        inputsFrom = [ ];
+      };
+
+      default = pkgs.mkShell {
+        name = "Example mono shell";
+        packages = [
+          (pkgs.rosPackages.noetic.buildEnv {
+              paths = [
+                  # Core ROS Packages
+                  # pkgs.rosPackages.noetic.ros-core
+                  pkgs.rosPackages.noetic.roslaunch
+                  pkgs.rosPackages.noetic.rosbash
+                  pkgs.rospy-tutorials
+              ];
+          })
+        ];
+
+        ROS_HOSTNAME = "localhost";
+        ROS_MASTER_URI = "http://localhost:11311";
+
+        shellHook = ''
+          # enable auto completion
+          source ${pkgs.rosPackages.noetic.rosbash}/share/rosbash/rosbash
+          # convenient aliases
+          alias talker='rosrun rospy_tutorials talker'
+          alias listener='rosrun rospy_tutorials listener'
+        '';
+      };
     };
-
-    devShells.default = pkgs.mkShell {
-      name = "Example mono project";
-      packages = [
-        (pkgs.rosPackages.noetic.buildEnv {
-            paths = [
-                # Core ROS Packages
-                # pkgs.rosPackages.noetic.ros-core
-                pkgs.rosPackages.noetic.roslaunch
-                pkgs.rosPackages.noetic.rosbash
-                pkgs.rospy-tutorials
-            ];
-        })
-      ];
-
-      ROS_HOSTNAME = "localhost";
-      ROS_MASTER_URI = "http://localhost:11311";
-
-      shellHook = ''
-        # enable auto completion
-        source ${pkgs.rosPackages.noetic.rosbash}/share/rosbash/rosbash
-        # convenient aliases
-        alias talker='rosrun rospy_tutorials talker'
-        alias listener='rosrun rospy_tutorials listener'
-      '';
-    };
-  });
+  };
 
   nixConfig = {
     extra-substituters = [ "https://ros.cachix.org" ];
