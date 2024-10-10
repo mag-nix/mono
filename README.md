@@ -3,7 +3,7 @@
 ## Integration of all previous examples
 
 - [x] GitHub - mag-nix/ros-basic
-- [ ] GitHub - mag-nix/ros-mono
+- [x] GitHub - mag-nix/ros-mono
 - [x] GitHub - mag-nix/ros-systemd
 - [x] GitHub - mag-nix/ros-rollback
 
