@@ -19,7 +19,7 @@
         inherit system;
         overlays = [
           nix-ros-overlay.overlays.default
-          (import ./pkgs/noetic.nix)
+          (import ./pkgs)
         ];
       };
     in
@@ -89,7 +89,8 @@
                   # pkgs.rosPackages.noetic.ros-core
                   pkgs.rosPackages.noetic.roslaunch
                   pkgs.rosPackages.noetic.rosbash
-                  pkgs.rospy-tutorials
+                  pkgs.local.rospy-tutorials
+                  pkgs.local.roscpp-tutorials
               ];
           })
         ];
@@ -102,7 +103,7 @@
           source ${pkgs.rosPackages.noetic.rosbash}/share/rosbash/rosbash
           # convenient aliases
           alias talker='rosrun rospy_tutorials talker'
-          alias listener='rosrun rospy_tutorials listener'
+          alias listener='rosrun roscpp_tutorials listener'
         '';
       };
     };

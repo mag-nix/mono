@@ -19,11 +19,11 @@ buildRosPackage {
       ./007_connection_header
       ./008_on_shutdown
       ./009_advanced_publish
-      ./CMakeLists.txt
       ./msg
-      ./package.xml
       ./srv
       ./test
+      ./CMakeLists.txt
+      ./package.xml
     ];
   };
 
