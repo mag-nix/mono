@@ -89,8 +89,8 @@
                   # pkgs.rosPackages.noetic.ros-core
                   pkgs.rosPackages.noetic.roslaunch
                   pkgs.rosPackages.noetic.rosbash
-                  # pkgs.rosPackages.noetic.std-msgs
-                  pkgs.rosPackages.noetic.rospy-tutorials
+                  pkgs.local.noetic.rospy-tutorials
+                  pkgs.local.noetic.roscpp-tutorials
               ];
           })
         ];

@@ -8,7 +8,7 @@ let
     extra: prev.lib.callPackageWith (prev // final.local.noetic);
   local = final.lib.makeScope newScope (localPrev: {
     noetic = {
-      tutorial-std-msgs = localPrev.callPackage ./tutorial-std-msgs {};
+      # custom-msgs = localPrev.callPackage ./custom-msgs {};
       rospy-tutorials = localPrev.callPackage ./rospy-tutorials {};
       roscpp-tutorials = localPrev.callPackage ./roscpp-tutorials {};
     };
