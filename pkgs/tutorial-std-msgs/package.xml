@@ -1,5 +1,5 @@
 <package>
-  <name>std_msgs</name>
+  <name>std_msgs_tutorial</name>
   <version>0.5.13</version>
   <description>
     Standard ROS Messages including common message types representing primitive data types and other basic message constructs, such as multiarrays.

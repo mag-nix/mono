@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(std_msgs)
+project(std_msgs_tutorial)
 
 find_package(catkin REQUIRED COMPONENTS message_generation)
 

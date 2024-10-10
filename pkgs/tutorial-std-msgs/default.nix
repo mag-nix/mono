@@ -4,8 +4,8 @@
 
 { lib, buildRosPackage, fetchurl, catkin, message-generation, message-runtime }:
 buildRosPackage {
-  pname = "ros-noetic-std-msgs";
-  version = "0.5.13-r1";
+  pname = "ros-noetic-std-msgs-tutorial";
+  version = "1.0.0";
 
   src = lib.fileset.toSource {
     root = ./.;
