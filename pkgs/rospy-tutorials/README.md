@@ -1,0 +1,1 @@
+This is the rospy tutorial of Open Robotics copied for demo purpose of a mixed ros and nix environment in a single repo
