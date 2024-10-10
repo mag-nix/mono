@@ -5,4 +5,5 @@ callPackage = if toplevel then prev.rosPackages.noetic.callPackage else prev.cal
 in
 {
   rospy-tutorials = callPackage ./rospy-tutorials { };
+  roscpp-tutorials = callPackage ./roscpp-tutorials { };
 }
