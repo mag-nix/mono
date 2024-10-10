@@ -9,8 +9,8 @@
 
 ## Additionally added aspects
 
-- [ ] Continuous Integration
-- [ ] Custom Binary Caching (Cachix.org)
+- [x] Continuous Integration
+- [x] Custom Binary Caching (Cachix.org)
 - [ ] Multiple Robots called *Old_Bot*, *Current_Bot* and *Upcoming_Bot*
 - [ ] Jumping back in time
 
