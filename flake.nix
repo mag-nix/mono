@@ -36,27 +36,27 @@
     };
 
     # Nix Packages
-    # packages.${system} = {
-    #   # Supported formats at https://github.com/nix-community/nixos-generators
-    #   vbox = nixos-generators.nixosGenerate {
-    #     inherit system;
-    #     specialArgs = attrs;
-    #     modules = [
-    #       nix-ros-overlay.nixosModules.default
-    #       ./configuration/configuration-vm.nix
-    #     ];
-    #     format = "virtualbox";
-    #   };
-    #   install-iso = nixos-generators.nixosGenerate {
-    #     inherit system;
-    #     specialArgs = attrs;
-    #     modules = [
-    #       nix-ros-overlay.nixosModules.default
-    #       ./configuration/configuration-iso.nix
-    #     ];
-    #     format = "install-iso";
-    #   };
-    # };
+    packages.${system} = {
+      # Supported formats at https://github.com/nix-community/nixos-generators
+      vbox = nixos-generators.nixosGenerate {
+        inherit system;
+        specialArgs = attrs;
+        modules = [
+          nix-ros-overlay.nixosModules.default
+          ./configuration/configuration-vm.nix
+        ];
+        format = "virtualbox";
+      };
+      install-iso = nixos-generators.nixosGenerate {
+        inherit system;
+        specialArgs = attrs;
+        modules = [
+          nix-ros-overlay.nixosModules.default
+          ./configuration/configuration-iso.nix
+        ];
+        format = "install-iso";
+      };
+    };
 
     deploy.nodes.local-vm = {
       hostname = "localhost";
