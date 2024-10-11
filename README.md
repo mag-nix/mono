@@ -20,3 +20,8 @@
 - [ ] Insights: "What version of a lib am I currently using?"
 - [ ] Reproduce failed CI build locally (hint: --pure)
 - [ ] Additional target systems (ARM / RasPi, ..?)
+
+## Open Points
+
+- Integration of ros-nix-overlay and *local packages* should be smoother
+- *Local packages* should be able to replace a package of ros-nix-overlay for everything present in ros-nix-overlay

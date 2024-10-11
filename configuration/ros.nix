@@ -14,7 +14,8 @@
     overlays = [
       config.ros-module.overlays.default
       (rosSelf: rosSuper: {
-        rospy-tutorials-local = rosSelf.callPackage ../pkgs/rospy-tutorials { };
+        roscpp-tutorials = rosSelf.callPackage ../pkgs/roscpp-tutorials { };
+        rospy-tutorials = rosSelf.callPackage ../pkgs/rospy-tutorials { };
       })
       # (import ../pkgs)
     ];
