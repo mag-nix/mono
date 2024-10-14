@@ -47,6 +47,15 @@
         ];
         format = "virtualbox";
       };
+      qemu = nixos-generators.nixosGenerate {
+        inherit system;
+        specialArgs = attrs;
+        modules = [
+          nix-ros-overlay.nixosModules.default
+          ./configuration/configuration-vm.nix
+        ];
+        format = "qcow";
+      };
     };
 
     deploy.nodes.local-vm = {
@@ -61,6 +70,20 @@
         path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nixos-vm;
       };
     };
+
+    deploy.nodes.local-qemu = {
+      hostname = "172.27.0.4";
+      profiles.system = {
+        remoteBuild = false;
+        autoRollback = false;
+        magicRollback = false;
+        sshUser = "robotix";
+        sshOpts = [ "-p" "22" ];
+        user = "root";
+        path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nixos-vm;
+      };
+    };
+
 
     # This is highly advised, and will prevent many possible mistakes
     checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;

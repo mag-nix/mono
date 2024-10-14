@@ -28,6 +28,12 @@
 
   networking.hostName = "nixos";
 
+  networking.useDHCP = false;
+  networking.interfaces.ens3.ipv4.addresses = [ {
+    address = "172.27.0.4";
+    prefixLength = 24;
+  } ];
+
   services.sshd.enable = true;
 
   nix.settings = {
