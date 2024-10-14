@@ -44,7 +44,7 @@ chmod +w nixos.qcow2
 ### Import the image
 
 ``` bash
-virt-install --name nixos --ram 2048 --disk nixos.qcow2 --import
+virt-install --name nixos --ram 2048 --disk nixos.qcow2 --import --nographics --os-type=generic
 ```
 
 ### Direcly access VM
@@ -68,3 +68,7 @@ deploy .#local-vm
  # qemu
 deploy .#local-qemu # qemu
 ```
+
+## Open Points
+
+Fix ip addresses for qemu approach
