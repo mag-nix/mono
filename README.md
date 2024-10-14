@@ -11,8 +11,8 @@
 
 - [x] Continuous Integration
 - [x] Custom Binary Caching (Cachix.org)
-- [ ] Multiple Robots called *Old_Bot*, *Current_Bot* and *Upcoming_Bot*
-- [ ] Jumping back in time
+- [x] Add multiple releases
+- [x] Jumping back in time
 
 ## Potentially added
 
