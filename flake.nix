@@ -72,7 +72,7 @@
     };
 
     deploy.nodes.local-qemu = {
-      hostname = "172.27.0.4";
+      hostname = "192.168.122.11";
       profiles.system = {
         remoteBuild = false;
         autoRollback = false;

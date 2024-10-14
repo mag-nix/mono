@@ -56,7 +56,7 @@ virsh console nixos
 ### ssh into vm
 
 ``` bash
-ssh robotix@172.27.0.4
+ssh robotix@192.168.122.11
 ```
 
 ### deploy to vm
@@ -65,10 +65,6 @@ ssh robotix@172.27.0.4
 nix develop .#deploy
 # virtual box
 deploy .#local-vm
- # qemu
-deploy .#local-qemu # qemu
+# qemu
+deploy .#local-qemu
 ```
-
-## Open Points
-
-Fix ip addresses for qemu approach
