@@ -1,5 +1,11 @@
 # NixOS ROS Mono Repository
 
+## Learning Goals
+
+- Rediscover aspects from the previous examples
+
+- Change a package and deploy the system to your VM
+
 ## Integration of all previous examples
 
 - [x] GitHub - mag-nix/ros-basic
@@ -47,7 +53,7 @@ chmod +w nixos.qcow2
 virt-install --name nixos --ram 2048 --disk nixos.qcow2 --import --nographics --os-type=generic
 ```
 
-### Direcly access VM
+### Directly access VM
 
 ``` bash
 virsh console nixos
